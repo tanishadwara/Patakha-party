@@ -1,0 +1,20 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Tanisha//Patakha Party//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:patakha-party-2026-11-08@tanisha
+DTSTAMP:20261102T000000Z
+DTSTART:20261108T110000Z
+DTEND:20261108T170000Z
+SUMMARY:Tanisha's Diwali Party 🪔 Patakha Party
+LOCATION:Flat No. 17137\, Prestige Finsbury Park Regent\, Bangalore
+DESCRIPTION:Tanisha's Diwali Party! Ethnic wear (full Chammak Challo!). Diyas\, songs\, dumb charades\, tambola\, UNO and crackers. Bring your own crackers! PS: You stay far\, so START AT 3 PM.
+BEGIN:VALARM
+TRIGGER:-PT90M
+ACTION:DISPLAY
+DESCRIPTION:Leave now for the Patakha Party! 🚗
+END:VALARM
+END:VEVENT
+END:VCALENDAR
