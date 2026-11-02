@@ -332,6 +332,19 @@ footer .sign { font-family: var(--f-display); font-size: 26px; color: var(--must
   .byoc { flex-direction: column; align-items: center; }
   .byoc > div:first-child { align-self: stretch; }
 }
+
+/* background music toggle */
+.music {
+  position: fixed; z-index: 20;
+  right: calc(14px + env(safe-area-inset-right, 0px));
+  bottom: calc(14px + env(safe-area-inset-bottom, 0px));
+  width: 52px; height: 52px; border-radius: 50%; border: 0; cursor: pointer;
+  font-size: 22px; background: var(--mustard); color: var(--navy);
+  box-shadow: 0 0 0 3px var(--navy), 0 0 0 6px var(--sky), 0 8px 20px rgba(10,20,60,.4);
+}
+.music.playing { animation: pulse 1.6s ease-in-out infinite; }
+@keyframes pulse { 50% { transform: scale(1.08); } }
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition: none !important; }
 }
@@ -339,6 +352,8 @@ footer .sign { font-family: var(--f-display); font-size: 26px; color: var(--must
 </head>
 <body style="margin:0">
 
+<audio id="bgm" src="music.mp3" loop preload="auto"></audio>
+<button class="music" id="musicBtn" type="button" aria-label="Play music" hidden>🔇</button>
 <canvas id="sky" aria-hidden="true"></canvas>
 <div class="side l" aria-hidden="true"></div>
 <div class="side r" aria-hidden="true"></div>
@@ -594,6 +609,35 @@ footer .sign { font-family: var(--f-display); font-size: 26px; color: var(--must
       el.appendChild(sp);
     }
   });
+
+
+  /* background music: starts on the guest's first tap (browsers block sound before that) */
+  const bgm = $("bgm"), mBtn = $("musicBtn");
+  let musicOn = store.get("dd_music") !== "off", musicOk = true;
+  bgm.volume = 0.6;
+  bgm.addEventListener("error", () => { musicOk = false; mBtn.hidden = true; });
+  function showState() {
+    const playing = !bgm.paused;
+    mBtn.textContent = playing ? "🔊" : "🔇";
+    mBtn.setAttribute("aria-label", playing ? "Mute music" : "Play music");
+    mBtn.classList.toggle("playing", playing);
+  }
+  function startMusic() {
+    if (!musicOk || !musicOn) return;
+    const pr = bgm.play();
+    if (pr) pr.then(() => { mBtn.hidden = false; showState(); }).catch(() => { mBtn.hidden = false; showState(); });
+  }
+  mBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    if (bgm.paused) { musicOn = true; store.set("dd_music", "on"); bgm.play().then(showState, showState); }
+    else { musicOn = false; store.set("dd_music", "off"); bgm.pause(); showState(); }
+  });
+  ["pointerdown", "keydown"].forEach((ev) => addEventListener(ev, function first(e) {
+    if (e.target === mBtn) return;
+    startMusic(); removeEventListener(ev, first, true);
+  }, { capture: true, once: false }));
+  bgm.addEventListener("play", showState); bgm.addEventListener("pause", showState);
+  document.addEventListener("visibilitychange", () => { if (document.hidden && !bgm.paused) { bgm.pause(); bgm.dataset.resume = "1"; } else if (!document.hidden && bgm.dataset.resume) { delete bgm.dataset.resume; bgm.play().catch(() => {}); } });
 
   /* name gate */
   let guest = "";
