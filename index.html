@@ -413,7 +413,7 @@ footer .sign { font-family: var(--f-display); font-size: 26px; color: var(--must
 
       <div class="row">
         <a class="btn" id="gcal" target="_blank" rel="noopener">📅 Add to Google Calendar</a>
-        <a class="btn ghost" id="ocal" target="_blank" rel="noopener">Outlook calendar</a>
+        <a class="btn ghost" id="acal" href="party.ics">🍎 Add to Apple Calendar</a>
       </div>
     </section>
 
@@ -445,7 +445,7 @@ footer .sign { font-family: var(--f-display); font-size: 26px; color: var(--must
       <ol class="lineup">
         <li><span class="ico" aria-hidden="true">🪔</span><div><b>Lighting diyas</b><small>We light up the whole balcony together. Main character moment.</small></div></li>
         <li><span class="ico" aria-hidden="true">🎶</span><div><b>Songs &amp; full bakchodi</b><small>Bollywood bangers on loop.</small></div></li>
-        <li><span class="ico" aria-hidden="true">🎲</span><div><b>Antakshari, dumb charades, tambola, UNO</b><small>Competitive aunty energy expected. Let's play if time permits!</small></div></li>
+        <li><span class="ico" aria-hidden="true">🎲</span><div><b>Dumb charades, tambola, UNO</b><small>Competitive aunty energy expected. Let's play if time permits!</small></div></li>
         <li><span class="ico" aria-hidden="true">🎆</span><div><b>Bursting crackers</b><small>The grand finale. Full dhoom-dhadaka.</small></div></li>
       </ol>
       <div class="byoc"><div><b>BYOC: Bring Your Own Crackers!</b> Because <span class="hl">More the Merrier!</span> 🎉 Haan, I'll have some stocked up, but between us, it might not be enough. Sooo bring more along with you ❤️ Phuljhadi, anar, chakri, rockets… pick whatever sparks joy and bring it along. 🎇</div><div class="anar" aria-hidden="true"><span class="cone"></span></div></div>
@@ -625,17 +625,12 @@ footer .sign { font-family: var(--f-display); font-size: 26px; color: var(--must
 
   /* calendar links */
   const title = "Tanisha's Diwali Party 🪔 Patakha Party";
-  const details = "Tanisha's Diwali Party! Ethnic wear (full Chammak Challo!). Diyas, songs, Antakshari, dumb charades, tambola and crackers. Bring your own crackers! PS: You stay far, so START AT 3 PM.";
+  const details = "Tanisha's Diwali Party! Ethnic wear (full Chammak Challo!). Diyas, songs, dumb charades, tambola, UNO and crackers. Bring your own crackers! PS: You stay far, so START AT 3 PM.";
   const loc = "Flat No. 17137, Prestige Finsbury Park Regent, Bangalore";
   $("gcal").href = "https://calendar.google.com/calendar/render?action=TEMPLATE" +
     "&text=" + encodeURIComponent(title) +
     "&dates=20261108T110000Z/20261108T170000Z" +
     "&details=" + encodeURIComponent(details) +
-    "&location=" + encodeURIComponent(loc);
-  $("ocal").href = "https://outlook.live.com/calendar/0/deeplink/compose?path=/calendar/action/compose&rru=addevent" +
-    "&subject=" + encodeURIComponent(title) +
-    "&startdt=2026-11-08T11:00:00Z&enddt=2026-11-08T17:00:00Z" +
-    "&body=" + encodeURIComponent(details) +
     "&location=" + encodeURIComponent(loc);
 
   /* copy address */
